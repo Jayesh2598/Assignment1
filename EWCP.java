@@ -10,7 +10,6 @@ public class EWCP {
 		// TODO Auto-generated method stub
 		
 		int empHours=0;
-		int empWage=0;
 		int empType = (int) (Math.floor(Math.random() * 10) % 3);
 		
 		if(empType== FULL_DAY) {
@@ -26,7 +25,7 @@ public class EWCP {
 			empHours=0;
 		}
 		
-		empWage= WAGE_PER_HOUR * empHours;
+		int empWage= WAGE_PER_HOUR * empHours;
 		System.out.println("The daily wage of the employee is :" + empWage);
 	}
 
