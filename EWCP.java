@@ -12,17 +12,21 @@ public class EWCP {
 		int empHours=0;
 		int empType = (int) (Math.floor(Math.random() * 10) % 3);
 		
-		if(empType== FULL_DAY) {
-			System.out.println("Full time employee.");
-			empHours=8;
-		}	
-		else if(empType==PART_TIME) {
-			System.out.println("Part time employee.");
-			empHours=4;
-		}	
-		else {
-			System.out.println("Employee absent.");
-			empHours=0;
+		switch (empType) {
+			case FULL_DAY:
+				System.out.println("Full time employee.");
+				empHours=8;
+				break;
+				
+			case PART_TIME:
+				System.out.println("Part time employee.");
+				empHours=4;
+				break;
+				
+			default:
+				System.out.println("Employee absent.");
+				empHours=0;
+				break;
 		}
 		
 		int empWage= WAGE_PER_HOUR * empHours;
