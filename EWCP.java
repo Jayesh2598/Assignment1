@@ -11,6 +11,7 @@ public class EWCP {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		System.out.println("Welcome to Employee Wage Computation Program!");
 		int empHours=0;
 		int empType = (int) (Math.floor(Math.random() * 10) % 3);
 		
@@ -31,15 +32,26 @@ public class EWCP {
 				empHours=0;
 				break;
 		}
+		System.out.println("Wages\t Days\t Hours Worked");
 		
 		//Calculating monthly wage
-		int monthlyWage=0;
-		int dailyWage= WAGE_PER_HOUR * empHours;
 		
-		if(empHours!=0 && (HOURS_PER_MONTH/empHours)<20)
-			monthlyWage = HOURS_PER_MONTH * WAGE_PER_HOUR;
-		else
-			monthlyWage = dailyWage * DAYS_PER_MONTH;
+		int hoursWorked=0;
+		int monthlyWage=0;
+		int days=0;
+		int empWage= WAGE_PER_HOUR * empHours;
+		
+		while((hoursWorked+empHours)<=100 && days<20){
+			monthlyWage += empWage;
+			hoursWorked += empHours;
+			days++;
+			System.out.println(monthlyWage+"\t"+days+"\t"+hoursWorked);
+		};
+		if(hoursWorked!=100 && days<20) {
+			for(int i=hoursWorked;i<100;i++) 
+				monthlyWage += WAGE_PER_HOUR;
+			System.out.println(monthlyWage+"\t"+(++days)+"\t"+HOURS_PER_MONTH);
+		}
 		
 		System.out.println("The monthly wage before the conditions are reached is : "+ monthlyWage);
 	}
