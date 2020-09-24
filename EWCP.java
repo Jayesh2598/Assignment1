@@ -30,7 +30,9 @@ public class EWCP {
 		}
 		
 		int empWage= WAGE_PER_HOUR * empHours;
-		System.out.println("The daily wage of the employee is :" + empWage);
+		int monthlyWage= empWage*20;
+		System.out.println("The daily wage of the employee is : " + empWage);
+		System.out.println("Monthly wage of the employee is : "+monthlyWage);
 	}
 
 }
