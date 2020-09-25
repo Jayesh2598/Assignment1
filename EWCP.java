@@ -1,5 +1,7 @@
 package assignment1;
 
+import java.util.Random;
+
 public class EWCP {
 	
 	public static final int WAGE_PER_HOUR = 20;
@@ -9,11 +11,11 @@ public class EWCP {
 	public static final int HOURS_PER_MONTH= 100;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		System.out.println("Welcome to Employee Wage Computation Program!");
 		int empHours=0;
-		int empType = (int) (Math.floor(Math.random() * 10) % 3);
+		Random ran = new Random();
+		int empType = ran.nextInt(3);
 		
 		//Checking if employee is present and their type		
 		switch (empType) {
@@ -35,25 +37,30 @@ public class EWCP {
 		System.out.println("Wages\t Days\t Hours Worked");
 		
 		//Calculating monthly wage
+		int monthlyWage= calculateWage(empHours);
 		
+		
+		System.out.println("The monthly wage before the conditions are reached is : "+ monthlyWage);
+	}
+	
+	public static int calculateWage(int empHours) {
 		int hoursWorked=0;
 		int monthlyWage=0;
 		int days=0;
 		int empWage= WAGE_PER_HOUR * empHours;
 		
-		while((hoursWorked+empHours)<=100 && days<20){
+		while((hoursWorked+empHours)<=100 && days<20){						//Calculating till the nearest multiple of empHours less than 100
 			monthlyWage += empWage;
 			hoursWorked += empHours;
 			days++;
 			System.out.println(monthlyWage+"\t"+days+"\t"+hoursWorked);
 		};
-		if(hoursWorked!=100 && days<20) {
+		if(hoursWorked!=100 && days<20) {									//Calculating from nearest multiple of empHours to 100
 			for(int i=hoursWorked;i<100;i++) 
 				monthlyWage += WAGE_PER_HOUR;
 			System.out.println(monthlyWage+"\t"+(++days)+"\t"+HOURS_PER_MONTH);
 		}
-		
-		System.out.println("The monthly wage before the conditions are reached is : "+ monthlyWage);
+		return monthlyWage;
 	}
 
 }
