@@ -1,66 +1,62 @@
 package assignment1;
 
-import java.util.Random;
+import java.util.Scanner;
 
 public class EWCP {
 	
-	public static final int WAGE_PER_HOUR = 20;
-	public static final int PART_TIME= 1;
-	public static final int FULL_DAY= 2;
-	public static final int DAYS_PER_MONTH= 20;
-	public static final int HOURS_PER_MONTH= 100;
-	
 	public static void main(String[] args) {
 		
-		System.out.println("Welcome to Employee Wage Computation Program!");
-		int empHours=0;
-		Random ran = new Random();
-		int empType = ran.nextInt(3);
+		Scanner sc = new Scanner(System.in);
 		
-		//Checking if employee is present and their type		
-		switch (empType) {
-			case FULL_DAY:
-				System.out.println("Full time employee.");
+		System.out.println("Welcome to Employee Wage Computation Program!");
+
+		System.out.println("Enter the company number (1/2/3):");									//Taking company number as input from user
+		int number= Integer.parseInt(sc.nextLine());								
+		while(number<1 || number>3) {
+			System.out.println("Please enter a number between 1-3.");
+			number=Integer.parseInt(sc.nextLine());
+		}
+		
+		System.out.println("Enter the type of employee (Full time/ Part time/ Absent) :");			//Taking employee Type as input from user
+		String empType= sc.nextLine().trim();
+		while( !(empType.equalsIgnoreCase("full time") || empType.equalsIgnoreCase("part time") || empType.equalsIgnoreCase("absent"))) {
+			System.out.println("Please enter a valid employee type.");
+			empType=sc.nextLine().trim();
+		}
+		
+		int empHours=0;		
+		switch (empType.toUpperCase()) {						//Setting the daily work hours depending on the employee type defined by user
+			case "FULL TIME":
 				empHours=8;
-				break;
-				
-			case PART_TIME:
-				System.out.println("Part time employee.");
+				break;	
+			case "PART TIME":
 				empHours=4;
 				break;
-				
-			default:
-				System.out.println("Employee absent.");
+			case "ABESNT":
 				empHours=0;
 				break;
 		}
-		System.out.println("Wages\t Days\t Hours Worked");
 		
-		//Calculating monthly wage
-		int monthlyWage= calculateWage(empHours);
-		
-		
-		System.out.println("The monthly wage before the conditions are reached is : "+ monthlyWage);
-	}
-	
-	public static int calculateWage(int empHours) {
-		int hoursWorked=0;
 		int monthlyWage=0;
-		int days=0;
-		int empWage= WAGE_PER_HOUR * empHours;
-		
-		while((hoursWorked+empHours)<=100 && days<20){						//Calculating till the nearest multiple of empHours less than 100
-			monthlyWage += empWage;
-			hoursWorked += empHours;
-			days++;
-			System.out.println(monthlyWage+"\t"+days+"\t"+hoursWorked);
-		};
-		if(hoursWorked!=100 && days<20) {									//Calculating from nearest multiple of empHours to 100
-			for(int i=hoursWorked;i<100;i++) 
-				monthlyWage += WAGE_PER_HOUR;
-			System.out.println(monthlyWage+"\t"+(++days)+"\t"+HOURS_PER_MONTH);
+		switch (number) {											//Initializing an object of class defined by user and calculating wage
+			case 1:
+				Company company1=new Company(20,20,100);
+				System.out.println("Wage per hour:"+company1.getWage_per_hour()+"\nWorking days per month:"+company1.getDays_per_month()+"\nWorking hours per month:"+company1.getHours_per_month());
+				monthlyWage= company1.calculateWage(empHours, company1.getWage_per_hour(), company1.getHours_per_month(), company1.getDays_per_month());
+				break;
+			case 2:
+				Company company2=new Company(30,15,90);
+				System.out.println("Wage per hour:"+company2.getWage_per_hour()+"\nWorking days per month:"+company2.getDays_per_month()+"\nWorking hours per month:"+company2.getHours_per_month());
+				monthlyWage= company2.calculateWage(empHours, company2.getWage_per_hour(), company2.getHours_per_month(), company2.getDays_per_month());
+				break;
+			case 3:
+				Company company3=new Company(25,22,120);
+				System.out.println("Wage per hour:"+company3.getWage_per_hour()+"\nWorking days per month:"+company3.getDays_per_month()+"\nWorking hours per month:"+company3.getHours_per_month());
+				monthlyWage= company3.calculateWage(empHours, company3.getWage_per_hour(), company3.getHours_per_month(), company3.getDays_per_month());
+				break;
 		}
-		return monthlyWage;
+		
+		System.out.println("The monthly wage of a "+ empType.toLowerCase() +" employee in Company"+ number +" when the conditions are reached is : "+ monthlyWage);
+		sc.close();
 	}
-
 }
