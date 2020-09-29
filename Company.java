@@ -1,19 +1,27 @@
 package assignment1;
 
+import java.util.Random;
+
 public class Company {
 	
-
+	public final int FULL_TIME=1;
+	public final int PART_TIME=2;
+	public final int ABSENT=0;
+	
+	private String company;
 	private int wage_per_hour;
 	private int days_per_month;
 	private int hours_per_month;
+	private int totalEmployeeWage;
 	
 	//Constructor
-	public Company(int wage_per_hour, int days_per_month, int hours_per_month) {
+	public Company(String company, int wage_per_hour, int days_per_month, int hours_per_month) {
+		this.company = company;
 		this.wage_per_hour = wage_per_hour;
 		this.days_per_month = days_per_month;
 		this.hours_per_month = hours_per_month;
 	}
-	
+
 	//Getters
 	public int getWage_per_hour() {
 		return wage_per_hour;
@@ -24,36 +32,49 @@ public class Company {
 	public int getHours_per_month() {
 		return hours_per_month;
 	}
-
-	//Setters
-	public void setWage_per_hour(int wage_per_hour) {
-		this.wage_per_hour = wage_per_hour;
-	}
-	public void setDays_per_month(int days_per_month) {
-		this.days_per_month = days_per_month;
-	}
-	public void setHours_per_month(int hours_per_month) {
-		this.hours_per_month = hours_per_month;
-	}
 	
-	public int calculateWage(int empHours, int WAGE_PER_HOUR, int HOURS_PER_MONTH, int DAYS_PER_MONTH) {
-		int hoursWorked=0;
-		int monthlyWage=0;
-		int days=0;
-		int dailyWage= WAGE_PER_HOUR * empHours;
-		System.out.println("Wages\t Days\t Hours Worked");
+	//Setter
+	public void setTotalEmployeeWage(int totalEmployeeWage) {
+		this.totalEmployeeWage = totalEmployeeWage;
+	}
+
+	@Override
+	public String toString() {
+		return "The total employee wage for "+company+" is "+totalEmployeeWage;
+	}
 		
-		while((hoursWorked+empHours)<= HOURS_PER_MONTH && days<DAYS_PER_MONTH){		//Calculating till the nearest multiple of empHours less than 100
-			monthlyWage += dailyWage;
-			hoursWorked += empHours;
+	public int calculateWage(Company company) {
+		int hoursWorked=0;
+		int empHours=0;
+		int days=0;
+		Random ran=new Random();
+		System.out.println("Days\t Hours \t Total Hours Worked");
+		
+		while(hoursWorked< company.getHours_per_month() && days<company.getDays_per_month()){
+			int empType = ran.nextInt(3);
 			days++;
-			System.out.println(monthlyWage+"\t  "+days+"\t  "+hoursWorked);
+			
+			switch(empType) {
+				case FULL_TIME:
+					empHours=8;
+					break;	
+				case PART_TIME:
+					empHours=4;
+					break;
+				case ABSENT:
+					empHours=0;
+					break;
+			}
+			if((hoursWorked+empHours)<=company.getHours_per_month()) 
+				hoursWorked += empHours;
+			else {
+				empHours=company.getHours_per_month()-hoursWorked;
+				hoursWorked = company.getHours_per_month();
+				
+			}	
+			System.out.println(days+"\t  "+empHours+"\t "+hoursWorked);
+
 		};
-		if(hoursWorked!=HOURS_PER_MONTH && days<DAYS_PER_MONTH) {					//Calculating from nearest multiple of empHours to 100
-			for(int i=hoursWorked;i<HOURS_PER_MONTH;i++) 
-				monthlyWage += WAGE_PER_HOUR;
-			System.out.println(monthlyWage+"\t  "+(++days)+"\t  "+HOURS_PER_MONTH);
-		}
-		return monthlyWage;
+		return hoursWorked*company.getWage_per_hour();
 	}
 }
