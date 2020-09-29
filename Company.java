@@ -9,7 +9,7 @@ public class Company {
 	private int totalEmployeeWage;
 	
 	//Constructor
-	public Company(String company, int wage_per_hour, int days_per_month, int hours_per_month) {
+	public Company(String company, int wage_per_hour, int days_per_month, int hours_per_month){
 		this.company = company;
 		this.wage_per_hour = wage_per_hour;
 		this.days_per_month = days_per_month;
@@ -17,6 +17,9 @@ public class Company {
 	}
 
 	//Getters
+	public String getCompany() {
+		return company;
+	}
 	public int getWage_per_hour() {
 		return wage_per_hour;
 	}

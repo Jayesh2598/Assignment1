@@ -1,5 +1,6 @@
 package assignment1;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class EmpWageBuilder implements IEmpWageCompute {
@@ -7,22 +8,21 @@ public class EmpWageBuilder implements IEmpWageCompute {
 	public final int PART_TIME=2;
 	public final int ABSENT=0;
 	
-	private Company[] empWageArray;
+	private ArrayList<Company> empWageArray;
 	
 	public EmpWageBuilder(){
-		 empWageArray= new Company[5];
+		 empWageArray= new ArrayList<Company>();
 	}
-	private int companyNo=0;
 	
-	public void addCompanyWage(String company, int wage_per_hour, int days_per_month, int hours_per_month) {
-		empWageArray[companyNo] = new Company(company, wage_per_hour, days_per_month, hours_per_month);
-		companyNo++;
+	public void addCompanyWage(String companyName, int wage_per_hour, int days_per_month, int hours_per_month) {
+		Company company = new Company(companyName, wage_per_hour, days_per_month, hours_per_month);
+		empWageArray.add(company);
 	}
 	
 	public void computeWage() {
-		for (int i=0;i<companyNo;i++) {
-			empWageArray[i].setTotalEmployeeWage(calculateWage(empWageArray[i]));
-			System.out.println(empWageArray[i]);
+		for (Company company: empWageArray) {
+			company.setTotalEmployeeWage(calculateWage(company));
+			System.out.println(company);
 		}
 	}
 	
@@ -31,6 +31,7 @@ public class EmpWageBuilder implements IEmpWageCompute {
 		int empHours=0;
 		int days=0;
 		Random ran=new Random();
+		System.out.println("For "+company.getCompany()+":");
 		System.out.println("Days\t Hours \t Total Hours Worked");
 		
 		while(hoursWorked< company.getHours_per_month() && days<company.getDays_per_month()){
@@ -67,9 +68,7 @@ public class EmpWageBuilder implements IEmpWageCompute {
 		
 		IEmpWageCompute empWageBuilder= new EmpWageBuilder();
 		empWageBuilder.addCompanyWage("Company1",20,20,80);
-		
 		empWageBuilder.addCompanyWage("Company2",30,15,65);
-
 		empWageBuilder.addCompanyWage("Company3",25,22,90);
 		
 		empWageBuilder.computeWage();
