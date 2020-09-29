@@ -29,6 +29,9 @@ public class Company {
 	public int getHours_per_month() {
 		return hours_per_month;
 	}
+	public int getTotalEmployeeWage() {
+		return totalEmployeeWage;
+	}
 	
 	//Setter
 	public void setTotalEmployeeWage(int totalEmployeeWage) {
