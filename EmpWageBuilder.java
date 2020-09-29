@@ -32,7 +32,7 @@ public class EmpWageBuilder implements IEmpWageCompute {
 		int days=0;
 		Random ran=new Random();
 		System.out.println("For "+company.getCompany()+":");
-		System.out.println("Days\t Hours \t Total Hours Worked");
+		System.out.println("Days\tHours \tTotal Hours Worked \tDaily Wage \tTotal Wage");
 		
 		while(hoursWorked< company.getHours_per_month() && days<company.getDays_per_month()){
 			int empType = ran.nextInt(3);
@@ -56,7 +56,7 @@ public class EmpWageBuilder implements IEmpWageCompute {
 				hoursWorked = company.getHours_per_month();
 				
 			}	
-			System.out.println(days+"\t  "+empHours+"\t "+hoursWorked);
+			System.out.println(days+"\t"+empHours+"\t\t"+hoursWorked +"\t\t"+empHours*company.getWage_per_hour()+"\t\t"+hoursWorked*company.getWage_per_hour());
 
 		};
 		return hoursWorked*company.getWage_per_hour();

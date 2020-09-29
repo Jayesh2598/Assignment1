@@ -37,6 +37,6 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "The total employee wage for "+company+" is "+totalEmployeeWage;
+		return "\nThe total employee wage for "+company+" is "+totalEmployeeWage;
 	}
 }
